@@ -47,7 +47,7 @@ class _homeState extends State<home> {
         child: screenlist.elementAt(selected),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color(0xffF2F3F7),
+        color: const Color(0xffF2F3F7),
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
         child: Row(

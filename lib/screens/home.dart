@@ -90,6 +90,13 @@ class _HomepageState extends State<Homepage> {
                             image: AssetImage(imagePaths[index]),
                             fit: BoxFit.cover,
                           ),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 3,
+                              color: Colors.black26,
+                              spreadRadius: 3,
+                            ),
+                          ],
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
