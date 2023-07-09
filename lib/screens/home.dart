@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -42,22 +41,10 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xffE8EBF5),
-        actions: [
-          const Icon(
-            Icons.notifications,
-            color: Color(0XffA4ADBC),
-          ),
-          SvgPicture.asset(
-            "assets/icons/dropbox.svg",
-            colorFilter: const ColorFilter.mode(
-              Colors.brown,
-              BlendMode.srcIn,
-            ),
-            height: 20,
-            width: 20,
-          ),
-          const SizedBox(width: 10),
-          const Padding(
+        actions: const [
+          Icon(Icons.notifications, color: Color(0XffA4ADBC)),
+          SizedBox(width: 10),
+          Padding(
             padding: EdgeInsets.only(right: 17.0),
             child: Icon(
               Icons.person,

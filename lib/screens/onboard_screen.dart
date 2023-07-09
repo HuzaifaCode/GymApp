@@ -28,19 +28,19 @@ class _BoardingScreenState extends State<BoardingScreen> {
                 lastpage = (index == 2);
               });
             },
-            children: [
+            children:  [
               startupWidget(
                 imagePath: "assets/images/G1.jpg",
                 headingText: "SUPPLEMENTS",
                 paragraphText:
-                    "I am going to do a workout daily to make me fit using this application",
+                "I am going to do a workout daily to make me fit using this application",
                 leftPress: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const LoginScreen(),
                     )),
                 leftButtonText: "Login",
-                rightPress: () => Navigator.pushReplacement(
+                rightPress:() => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const SignUp(),
@@ -51,14 +51,14 @@ class _BoardingScreenState extends State<BoardingScreen> {
                 imagePath: "assets/images/G4.jpg",
                 headingText: "SUPPLEMENTS",
                 paragraphText:
-                    "I am going to do a workout daily to make me fit using this application",
+                "I am going to do a workout daily to make me fit using this application",
                 leftPress: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const LoginScreen(),
                     )),
                 leftButtonText: "Login",
-                rightPress: () => Navigator.pushReplacement(
+                rightPress:() => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const SignUp(),
@@ -68,14 +68,15 @@ class _BoardingScreenState extends State<BoardingScreen> {
               startupWidget(
                 imagePath: "assets/images/G3.jpg",
                 headingText: "SUPPLEMENTS",
-                paragraphText:"I am going to do a workout daily to make me fit using this application",
+                paragraphText:
+                "I am going to do a workout daily to make me fit using this application",
                 leftPress: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const LoginScreen(),
                     )),
                 leftButtonText: "Login",
-                rightPress: () => Navigator.pushReplacement(
+                rightPress:() => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const SignUp(),
@@ -85,17 +86,20 @@ class _BoardingScreenState extends State<BoardingScreen> {
             ],
           ),
           Container(
-            alignment: const Alignment(0, 0.6),
+            alignment: const Alignment(0,0.6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+
                 SmoothPageIndicator(
                   controller: _controller,
                   count: 3,
                 ),
+
               ],
             ),
           ),
+
         ],
       ),
     );

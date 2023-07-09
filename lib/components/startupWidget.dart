@@ -5,14 +5,14 @@ import 'elevatedloginButton.dart';
 
 class startupWidget extends StatelessWidget {
   const startupWidget({
-    super.key,
-    required this.imagePath,
-    required this.headingText,
-    required this.paragraphText,
-    required this.leftPress,
-    required this.leftButtonText,
-    required this.rightPress,
-    required this.rightButtonText,
+  super.key,
+  required this.imagePath,
+  required this.headingText,
+  required this.paragraphText,
+  required this.leftPress,
+  required this.leftButtonText,
+  required this.rightPress,
+  required this.rightButtonText,
   });
 
   final String imagePath;
@@ -66,7 +66,11 @@ class startupWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   elevatedbuttonLWidget(
-                    onpressed: () => leftPress(),
+                    onpressed: () {
+                      if (leftPress != null) {
+                        leftPress; // Call the callback function
+                      };
+                    },
                     background_Color: Colors.deepPurpleAccent,
                     Elevation: 12,
                     fontcolor: Colors.white,
