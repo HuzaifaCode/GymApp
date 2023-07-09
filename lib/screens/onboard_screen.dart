@@ -1,9 +1,9 @@
-import 'package:firstapp/screens/home.dart';
-import 'package:firstapp/screens/intro_page1.dart';
-import 'package:firstapp/screens/intro_page2.dart';
-import 'package:firstapp/screens/intro_page3.dart';
+import 'package:firstapp/screens/login.dart';
+import 'package:firstapp/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../components/startupWidget.dart';
 
 class BoardingScreen extends StatefulWidget {
   const BoardingScreen({Key? key}) : super(key: key);
@@ -28,27 +28,74 @@ class _BoardingScreenState extends State<BoardingScreen> {
                 lastpage = (index == 2);
               });
             },
-            children: const [
-              Intropage1(),
-              Intropage2(),
-              Intropage3(),
+            children: [
+              startupWidget(
+                imagePath: "assets/images/G1.jpg",
+                headingText: "SUPPLEMENTS",
+                paragraphText:
+                    "I am going to do a workout daily to make me fit using this application",
+                leftPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const LoginScreen(),
+                    )),
+                leftButtonText: "Login",
+                rightPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const SignUp(),
+                    )),
+                rightButtonText: "SignUp",
+              ),
+              startupWidget(
+                imagePath: "assets/images/G4.jpg",
+                headingText: "SUPPLEMENTS",
+                paragraphText:
+                    "I am going to do a workout daily to make me fit using this application",
+                leftPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const LoginScreen(),
+                    )),
+                leftButtonText: "Login",
+                rightPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const SignUp(),
+                    )),
+                rightButtonText: "SignUp",
+              ),
+              startupWidget(
+                imagePath: "assets/images/G3.jpg",
+                headingText: "SUPPLEMENTS",
+                paragraphText:"I am going to do a workout daily to make me fit using this application",
+                leftPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const LoginScreen(),
+                    )),
+                leftButtonText: "Login",
+                rightPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const SignUp(),
+                    )),
+                rightButtonText: "SignUp",
+              ),
             ],
           ),
           Container(
-            alignment: const Alignment(0,0.6),
+            alignment: const Alignment(0, 0.6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-
                 SmoothPageIndicator(
                   controller: _controller,
                   count: 3,
                 ),
-
               ],
             ),
           ),
-
         ],
       ),
     );
