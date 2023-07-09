@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class description_screen extends StatefulWidget {
-  const description_screen({Key? key}) : super(key: key);
+  final String imagePath;
+  final String text;
+
+  const description_screen({
+    Key? key,
+    required this.imagePath,
+    required this.text,
+  }) : super(key: key);
 
   @override
   State<description_screen> createState() => _description_screenState();
@@ -20,6 +27,8 @@ class _description_screenState extends State<description_screen> {
   ];
   late List<bool> taskStatus;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -34,19 +43,20 @@ class _description_screenState extends State<description_screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffE8EBF5),
+        backgroundColor: const Color(0xffE8EBF5),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Image(
-              image: AssetImage("assets/images/G7.jpg"),
+             Image(
+              image: AssetImage(widget.imagePath),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 30),
+              padding: const EdgeInsets.only(top: 10.0, left: 30),
               child: Text(
-                "Daily Plan",
+               widget.text,
                 style: GoogleFonts.poppins(
                   fontSize: 25,
                   fontWeight: FontWeight.w600,
@@ -61,7 +71,7 @@ class _description_screenState extends State<description_screen> {
               ),
               child: Expanded(
                 child: Container(
-                  height: 320,
+                  height: screenHeight * 0.50,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(24),
@@ -85,7 +95,7 @@ class _description_screenState extends State<description_screen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Tasks List",
                               style: TextStyle(
                                 color: Colors.grey,
@@ -100,7 +110,7 @@ class _description_screenState extends State<description_screen> {
                           ],
                         ),
                         SizedBox(
-                          height: 12,
+                          height: screenHeight * 0.012,
                         ),
                         Expanded(
                           child: Scrollbar(

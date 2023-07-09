@@ -1,3 +1,4 @@
+import 'package:firstapp/screens/description_screen.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -83,21 +84,30 @@ class _HomepageState extends State<Homepage> {
                       horizontal: 20.0,
                     ),
                     child: Stack(children: [
-                      Container(
-                        height: screenHeight * 0.25,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(imagePaths[index]),
-                            fit: BoxFit.cover,
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 3,
-                              color: Colors.black26,
-                              spreadRadius: 3,
+                      InkWell(
+                        onTap: () {
+                           Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>  description_screen(imagePath: imagePaths[index], text: txt[index]),
+                              ));
+                        },
+                        child: Ink(
+                          height: screenHeight * 0.25,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(imagePaths[index]),
+                              fit: BoxFit.cover,
                             ),
-                          ],
-                          borderRadius: BorderRadius.circular(12),
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 3,
+                                color: Colors.black26,
+                                spreadRadius: 3,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                       Padding(
