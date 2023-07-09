@@ -1,35 +1,45 @@
 import 'package:firstapp/components/container.dart';
-import 'package:firstapp/components/textwidget.dart';
-import 'package:firstapp/screens/login.dart';
 import 'package:flutter/material.dart';
-import '../components/elevatedloginButton.dart';
-import 'signup_screen.dart';
 
-class Intropage3 extends StatefulWidget {
-  const Intropage3({Key? key}) : super(key: key);
+import 'elevatedloginButton.dart';
 
-  @override
-  State<Intropage3> createState() => _Intropage3State();
-}
+class startupWidget extends StatelessWidget {
+  const startupWidget({
+  super.key,
+  required this.imagePath,
+  required this.headingText,
+  required this.paragraphText,
+  required this.leftPress,
+  required this.leftButtonText,
+  required this.rightPress,
+  required this.rightButtonText,
+  });
 
-class _Intropage3State extends State<Intropage3> {
+  final String imagePath;
+  final String headingText;
+  final String paragraphText;
+  final VoidCallback leftPress;
+  final String leftButtonText;
+  final String rightButtonText;
+  final VoidCallback rightPress;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ContainerWidget(
-          image: "assets/images/G3.jpg",
+          image: imagePath,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
                   Text(
-                    "SUPPLEMENTS",
-                    style: TextStyle(
+                    headingText,
+                    style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -37,9 +47,9 @@ class _Intropage3State extends State<Intropage3> {
                 ],
               ),
               Text(
-                "I am going to do a workout daily to make me fit using this application",
+                paragraphText,
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 12,
                     color: Colors.white,
                     fontWeight: FontWeight.w700),
@@ -56,34 +66,28 @@ class _Intropage3State extends State<Intropage3> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   elevatedbuttonLWidget(
-                    onpressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const LoginScreen(),
-                      ),
-                    ),
+                    onpressed: () {
+                      if (leftPress != null) {
+                        leftPress; // Call the callback function
+                      };
+                    },
                     background_Color: Colors.deepPurpleAccent,
                     Elevation: 12,
                     fontcolor: Colors.white,
                     shadowcolor: Colors.black,
-                    text: "Login",
+                    text: leftButtonText,
                     kRegularPadding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 17),
+                        horizontal: 40, vertical: 15),
                   ),
                   elevatedbuttonLWidget(
-                    onpressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const SignUp(),
-                      ),
-                    ),
+                    onpressed: () => rightPress(),
                     background_Color: Colors.white,
                     Elevation: 12,
                     shadowcolor: Colors.black,
-                    text: "Sign up",
+                    text: rightButtonText,
                     fontcolor: Colors.black,
                     kRegularPadding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 17),
+                        horizontal: 40, vertical: 15),
                   ),
                 ],
               ),
