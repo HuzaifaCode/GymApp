@@ -36,7 +36,7 @@ class _description_screenState extends State<description_screen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffE8EBF5),
+        backgroundColor: const Color(0xffE8EBF5),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,7 +44,7 @@ class _description_screenState extends State<description_screen> {
               image: AssetImage("assets/images/G7.jpg"),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 30),
+              padding: const EdgeInsets.only(top: 10.0, left: 30),
               child: Text(
                 "Daily Plan",
                 style: GoogleFonts.poppins(
@@ -85,21 +85,24 @@ class _description_screenState extends State<description_screen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Tasks List",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                            const Padding(
+                              padding: EdgeInsets.only(left: 11.0),
+                              child: Text(
+                                "Tasks List",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             GestureDetector(
                               onTap: resetCheckboxes,
-                              child: Icon(Icons.refresh),
+                              child: const Icon(Icons.refresh),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Expanded(
