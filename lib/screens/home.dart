@@ -86,13 +86,18 @@ class _HomepageState extends State<Homepage> {
                     child: Stack(children: [
                       InkWell(
                         onTap: () {
-                           Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) =>  description_screen(imagePath: imagePaths[index], text: txt[index]),
-                              ));
+                          print(12);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => description_screen(
+                                imagePath: imagePaths[index],
+                                text: txt[index],
+                              ),
+                            ),
+                          );
                         },
-                        child: Ink(
+                        child: Container(
                           height: screenHeight * 0.25,
                           decoration: BoxDecoration(
                             image: DecorationImage(

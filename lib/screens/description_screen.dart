@@ -50,9 +50,13 @@ class _description_screenState extends State<description_screen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Image(
-              image: AssetImage(widget.imagePath),
+             SizedBox(
+               height: screenHeight * 0.306,
+               width: double.infinity,
+               child: Image(
+                image: AssetImage(widget.imagePath),
             ),
+             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0, left: 30),
               child: Text(
@@ -105,7 +109,7 @@ class _description_screenState extends State<description_screen> {
                             ),
                             GestureDetector(
                               onTap: resetCheckboxes,
-                              child: Icon(Icons.refresh),
+                              child: const Icon(Icons.refresh),
                             ),
                           ],
                         ),
