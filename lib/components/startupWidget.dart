@@ -23,6 +23,7 @@ class startupWidget extends StatelessWidget {
   final String rightButtonText;
   final VoidCallback rightPress;
 
+  //
   @override
   Widget build(BuildContext context) {
     return Stack(
