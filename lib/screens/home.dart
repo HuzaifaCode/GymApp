@@ -83,49 +83,51 @@ class _HomepageState extends State<Homepage> {
                       vertical: 8.0,
                       horizontal: 20.0,
                     ),
-                    child: Stack(children: [
-                      InkWell(
-                        onTap: () {
-                          print(12);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => description_screen(
-                                imagePath: imagePaths[index],
-                                text: txt[index],
+                    child: Stack(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            print(12);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => description_screen(
+                                  imagePath: imagePaths[index],
+                                  text: txt[index],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: screenHeight * 0.25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(imagePaths[index]),
-                              fit: BoxFit.cover,
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 3,
-                                color: Colors.black26,
-                                spreadRadius: 3,
+                            );
+                          },
+                          child: Container(
+                            height: screenHeight * 0.25,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(imagePaths[index]),
+                                fit: BoxFit.cover,
                               ),
-                            ],
-                            borderRadius: BorderRadius.circular(12),
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 3,
+                                  color: Colors.black26,
+                                  spreadRadius: 3,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 95.0, left: 26),
-                        child: Text(
-                          txt[index],
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 24),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 95.0, left: 26),
+                          child: Text(
+                            txt[index],
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 24),
+                          ),
                         ),
-                      )
-                    ]),
+                      ],
+                    ),
                   );
                 },
               ),

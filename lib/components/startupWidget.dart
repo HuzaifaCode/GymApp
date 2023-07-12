@@ -66,11 +66,7 @@ class startupWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   elevatedbuttonLWidget(
-                    onpressed: () {
-                      if (leftPress != null) {
-                        leftPress; // Call the callback function
-                      };
-                    },
+                    onpressed: () =>leftPress(),
                     background_Color: Colors.deepPurpleAccent,
                     Elevation: 12,
                     fontcolor: Colors.white,
