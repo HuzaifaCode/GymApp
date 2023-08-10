@@ -23,6 +23,7 @@ class startupWidget extends StatelessWidget {
   final String rightButtonText;
   final VoidCallback rightPress;
 
+  //
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -66,7 +67,10 @@ class startupWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   elevatedbuttonLWidget(
-                    onpressed: () =>leftPress(),
+
+                    onpressed: ()=>leftPress(),
+
+
                     background_Color: Colors.deepPurpleAccent,
                     Elevation: 12,
                     fontcolor: Colors.white,
