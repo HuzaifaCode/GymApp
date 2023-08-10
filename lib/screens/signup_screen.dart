@@ -1,10 +1,15 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/screens/Homee.dart';
-import 'package:firstapp/screens/home.dart';
 import 'package:firstapp/screens/login.dart';
+import 'package:firstapp/screens/number_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../components/SocailLogin.dart';
 import '../components/button.dart';
-import '../components/sizedbox.dart';
 import '../components/textfield.dart';
+import '../services/AuthServices.dart';
+import '../utils/toastMessages.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -15,22 +20,25 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   @override
-  bool visibility = false;
+  bool visibility = true;
+  bool isPress = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _fnameController = TextEditingController();
-  final TextEditingController _LnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _retypepasswordController =
-      TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffE8EBF5),
+        backgroundColor: const Color(0xffE8EBF5),
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0xffE8EBF5),
+          backgroundColor: const Color(0xffE8EBF5),
           automaticallyImplyLeading: false,
           title: const Center(
             child: Text(
@@ -48,109 +56,138 @@ class _SignUpState extends State<SignUp> {
           reverse: true,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-            child: Column(
-              children: [
-                TextFieldWidget(
-                  controller: _fnameController,
-                  prefixIcon: Icons.person,
-                  hintText: "Enter your First Name",
-                  labelText: "First Name",
-                ),
-                Sizeddbox(),
-                TextFieldWidget(
-                  controller: _LnameController,
-                  prefixIcon: Icons.person_2_outlined,
-                  hintText: "Enter your Last Name",
-                  labelText: "Last Name",
-                ),
-                Sizeddbox(),
-                TextFieldWidget(
-                  controller: _emailController,
-                  prefixIcon: Icons.email,
-                  hintText: "Email",
-                  labelText: "Email",
-                ),
-                Sizeddbox(),
-                TextFieldWidget(
-                  controller: _passwordController,
-                  prefixIcon: Icons.lock,
-                  hintText: "Enter your Password",
-                  labelText: "Password",
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        if (visibility) {
-                          visibility = false;
-                        } else {
-                          visibility = true;
-                        }
-                      });
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  TextFormFieldWidget(
+                    controller: _emailController,
+                    prefixIcon: Icons.email,
+                    hintText: "Email",
+                    labelText: "Email",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Email is required';
+                      } else if (!isEmailValid(value)) {
+                        return 'Invalid Email Format';
+                      }
+                      return null; // Return null if the input is valid
                     },
-                    child: Icon(
-                        visibility ? Icons.visibility : Icons.visibility_off,
-                        color:
-                            visibility ? Colors.black : Colors.grey.shade400),
                   ),
-                  obscure: visibility,
-                ),
-                Sizeddbox(),
-                TextFieldWidget(
-                  controller: _retypepasswordController,
-                  prefixIcon: Icons.lock,
-                  hintText: "Retype your Password",
-                  labelText: "Retype password",
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        if (visibility) {
-                          visibility = false;
-                        } else {
-                          visibility = true;
-                        }
-                      });
+
+                  const SizedBox(height: 20),
+                  TextFormFieldWidget(
+                    controller: _passwordController,
+                    prefixIcon: Icons.lock,
+                    hintText: "Enter your Password",
+                    labelText: "Password",
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        setState(() {
+                          if (visibility) {
+                            visibility = false;
+                          } else {
+                            visibility = true;
+                          }
+                        });
+                      },
+                      child: Icon(
+                          visibility ? Icons.visibility : Icons.visibility_off,
+                          color:
+                          visibility ? Colors.black : Colors.grey.shade400),
+                    ),
+                    obscure: visibility,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Password is required';
+                      } else if (!isPasswordValid(value)) {
+                        return 'Password must contain at least 8 characters\nnone uppercase letter\none lowercase letter\none numeric digit\none special symbol';
+                      }
+                      return null; // Return null if the input is valid
                     },
-                    child: Icon(
-                      visibility ? Icons.visibility : Icons.visibility_off,
-                      color: visibility ? Colors.black : Colors.grey.shade400,
-                    ),
                   ),
-                  obscure: visibility,
-                ),
-                Sizeddbox(),
-                ButtonWidget(
-                  backgroundColor: Colors.black,
-                  buttonTitle: 'SignUp',
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const home(),
-                    ),
+                  const SizedBox(height: 20),
+                  ButtonWidget(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          UserCredential user =
+                          await _auth.createUserWithEmailAndPassword(
+                            email: _emailController.text.trim().toString(),
+                            password:
+                            _passwordController.text.trim().toString(),
+                          );
+                          if (user != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()),
+                            );
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'email-already-in-use') {
+                            showSnackBar(
+                                'Try another Email, It\'s already in use',
+                                context);
+                          } else {
+                            showSnackBar("Error : ${e.code}", context);
+                          }
+                        }
+                      }
+                    },
+                    buttonTitle: const Text("Register"),
+                    backgroundColor: Colors.black,
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Already have an account?",
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const LoginScreen(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Already have an account?",
+                      ),
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_)=>const LoginScreen(),
+                              ),
+                            ),
+                        child: const Text(
+                          "Login?",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      child: const Text(
-                        "Login?",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SocialLogin(
+                          imagePath: "assets/images/google.png",
+                          onTap: () async {
+                            UserCredential userCredential = await AuthServices().signInWithGoogle();
+                            User? user = userCredential.user; // Extract the User object from UserCredential
+                            if(user !=null){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>home()),);
+                            }
+                          }),
+                      SizedBox(width: 40,),
+                      SocialLogin(
+                          imagePath: "assets/images/fb.png", onTap: () {})
+
+                    ],
+                  ),
+
+                  // _auth.signInWithEmailAndPassword(email: email, password: password)
+                  //
+                  // _auth.sendPasswordResetEmail(email: email)
+                ],
+              ),
             ),
           ),
         ),
